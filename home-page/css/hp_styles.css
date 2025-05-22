@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+/*video sfondo*/
+#bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    visibility: visible;
+    transition: opacity 0.5s ease;
+    opacity: 0.5;
+}
+#bg-video.fade-out {
+    opacity: 0;
+}
+
+/*carosello foto e video*/
+.carousel {
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    height: 90vh;
+    align-items: center;
+    padding: 0 20vw;
+    gap: 100%;
+}
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+.carousel-item {
+    z-index: 2;
+    overscroll-behavior: none;
+    flex: 0 0 auto;
+    flex-direction: column;
+    scroll-snap-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    text-decoration: none;
+    pointer-events: none;
+}
+.carousel-item img {
+    z-index: 2;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+    pointer-events: auto;
+}
+.carousel-item .caption {
+    text-align: center;
+    margin-top: 10px;
+    color: wheat;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 25px;
+    z-index: 2;
+    pointer-events: auto;
+}
+.carousel-item:hover {
+    transform: scale(1.05);
+}
+.carousel-item.no-hover:hover {
+    transform: none;
+}
+
+/*scorrimento*/
+.nav {
+    position: absolute;
+    top: 56%;
+    transform: translateY(-50%);
+    background: transparent;
+    padding: 150px 150px;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+}
+.nav.prev {
+    left: 1px;
+}
+.nav.next {
+    right: 1px;
+}

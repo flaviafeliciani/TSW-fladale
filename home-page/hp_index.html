@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>fladale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" href="../immagini_comuni/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/hp_styles.css"/>
+</head>
+<body>
+
+    <!--video background-->
+    <div class="background"></div>
+
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="video/scopri.mp4" type="video/mp4"/>
+        <p>Il tuo browser non supporta il video.</p>
+    </video>
+        
+    <!--pagine carosello-->
+    <div class="carousel" id="carousel">
+        <button class="nav prev"></button>
+        <a href="../scopri-page/scopri_index.html" class="carousel-item" data-video="video/scopri.mp4">
+            <img src="immagini/hp1.jpg" alt="Image 1">
+            <div class="caption">Scopri</div>
+        </a>
+        <a href="../consigli-page/consigli_index.html" class="carousel-item" data-video="video/consigli.mp4">
+            <img src="immagini/hp2.jpg" alt="Image 3" href="consigli-page/consigli_index.html">
+            <div class="caption">Consigli</div>
+        </a>
+        <a href="../giardino-page/giardino_index.html" class="carousel-item" data-video="video/giardino.mp4">
+            <img src="immagini/hp3.jpg" alt="Image 2">
+            <div class="caption">Giardino</div>
+        </a>
+        <a href="../storia-page/storia_index.html" class="carousel-item" data-video="video/storia.mp4">
+            <img src="immagini/hp4.jpg" alt="Image 4">
+            <div class="caption">Storia</div>
+        </a>
+        <button class="nav next"></button>
+    </div>
+
+    <script src="js/hp_scripts.js"></script>
+</body>
+</html>

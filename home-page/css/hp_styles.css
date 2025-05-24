@@ -28,6 +28,67 @@ html, body {
     opacity: 0;
 }
 
+/*header logo e accedi/profilo*/
+.top-section {
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    font-family: Arial, sans-serif;
+}
+.site-name {
+    z-index: 3;
+}
+.site-name img{
+    z-index: 3;
+    max-height: 50px;
+    max-width: 200px;
+}
+.login-button {
+    z-index: 3;
+    padding: 7px 15px;
+    background-color: transparent;
+    color: wheat;
+    border: 3px solid wheat;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+}
+.login-button a {
+    font-size: 1.2rem;
+    color: wheat;
+    text-decoration: none;
+    padding: 10px;
+}
+.login-button:hover {
+    background-color: transparent;
+    opacity: 0.5;
+}
+.icona-profilo {
+    width: 35px;
+    height: 35px;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+.top-section a {
+    font-family: 'Quicksand', sans-serif;
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+.top-section a img {
+    border: none;
+    outline: none;
+}
+
+
 /*carosello foto e video*/
 .carousel {
     z-index: 2;
@@ -84,13 +145,14 @@ html, body {
 /*scorrimento*/
 .nav {
     position: absolute;
-    top: 56%;
+    top: 60%;
+    height: 100%;
     transform: translateY(-50%);
     background: transparent;
-    padding: 150px 150px;
+    padding: 25%;
     border: none;
     cursor: pointer;
-    z-index: 2;
+    z-index: 1;
 }
 .nav.prev {
     left: 1px;

@@ -8,6 +8,31 @@ const next = document.querySelector(".nav.next");
 let isScrolling = false; // per monitorare se è in corso uno scroll
 let currentIndex = 0; // Indice dell'elemento attualmente centrato
 
+// Gestione accedi o profilo
+document.addEventListener("DOMContentLoaded", () => {
+    const accountArea = document.getElementById("account-area");
+
+    const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        return parts.length === 2 ? parts.pop().split(';').shift() : null;
+    };
+
+    const userEmail = getCookie("user_email");
+
+    if (userEmail) {
+        accountArea.innerHTML = `
+        <a href="../profilo-page/profilo_index.html" title="${userEmail}">
+            <img src="../immagini_comuni/profilo.png" alt="Profilo" class="icona-profilo">
+        </a>`;
+
+    } else {
+        // Utente non loggato: mostra "Accedi"
+        accountArea.innerHTML = `<a href="../log-in-page/accesso_index.html">Accedi</a>`;
+    }
+});
+
+
 // Funzione per ottenere l'indice dell'elemento più vicino al centro
 function getCenteredIndex() {
     const carouselRect = carousel.getBoundingClientRect();
@@ -76,6 +101,7 @@ prev.addEventListener("click", () => {
     // Ciclicizzare l'indice per un carosello infinito, ma non permettere di tornare indietro dal primo elemento
     const targetIndex = (currentIndex - 1 + items.length) % items.length;
     if (targetIndex === items.length - 1) {
+        // Se siamo sul primo, non torniamo indietro
         currentIndex = 0;
     } else {
         currentIndex = targetIndex;

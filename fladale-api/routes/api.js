@@ -178,5 +178,339 @@ router.get('/token-login', async (req, res) => {
     }
 });
 
+//Rotta POST /register: eeffettua registrazione nuovo utente nel database
+router.post('/register', async (req, res) => {
+    const { email, password, nome, cognome, telefono, citta, indirizzo } = req.body;
+
+    try {
+        const conn = await db.getConnection();
+
+        const existing = await conn.query('SELECT * FROM utenti WHERE email = ?', [email]);
+        if (existing.length > 0) {
+            conn.release();
+            return res.status(400).json({ message: 'Email già registrata, accedi' });
+        }
+
+        const password_hash = await bcrypt.hash(password, 10);
+        const token_attivazione = crypto.randomBytes(32).toString('hex');
+
+        // Salva nuovo utente non attivo
+        await conn.query(
+            `INSERT INTO utenti (email, password_hash, nome, cognome, telefono, citta, indirizzo, attivo, token_attivazione)
+             VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)`,
+            [email, password_hash, nome, cognome, telefono, citta, indirizzo, token_attivazione]
+        );
+
+        conn.release();
+
+        // Invia email di attivazione
+        const link = `${process.env.CLIENT_URL}/log-in-page/attivazione_index.html?token=${token_attivazione}`;
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: `"fladale" <${process.env.GMAIL_USER}>`,
+            to: email,
+            subject: "fladale - Attiva il tuo account!",
+            html: `
+                <div style="background: url('https://raw.githubusercontent.com/L-B3N2/test_email/refs/heads/main/background_email_2.jpg') center center / cover no-repeat; padding: 40px 0 0 0; font-family: Arial, sans-serif; text-align: center;">
+                    <div style="width: 70%; margin: auto; background-color: wheat; border-radius: 12px; padding: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
+                        <div style="margin-bottom: 20px;">
+                            <a href="${process.env.CLIENT_URL}/home-page/hp_index.html" style="text-decoration: none">
+                                <img src="https://raw.githubusercontent.com/L-B3N2/test_email/1a5ea73ff322f26410c91b77ad9e87880d759e49/lg_fladale_no_bg_wheat.png" alt="Logo Fladale" style="height: 50px; vertical-align: middle; text-decoration: none;">
+                                <img src="https://raw.githubusercontent.com/L-B3N2/test_email/1a5ea73ff322f26410c91b77ad9e87880d759e49/wr_fladale_no_bg_wheat.png" alt="Scritta Fladale" style="height: 50px; vertical-align: middle; text-decoration: none;">
+                            </a>
+                        </div>
+                        <h2 style="color: green; font-family: Georgia, 'Times New Roman', Times, serif;">fladale - Benvenuto!</h2>
+                        <p style="color: #333; font-size: 1.05em;">Clicca il bottone qui sotto per attivare il tuo profilo!</p>
+                        <div style="margin: 30px 0;">
+                            <a href="${link}" style="background-color: #4CAF50; color: white; padding: 14px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Attiva il tuo profilo</a>
+                        </div>
+                        <p style="font-size: 0.85em; color: #666;">Se non hai effettuato la registrazione, ignora questa email.</p>
+                    </div>
+                    <div style="width: 100%; background-color: #4CAF50; margin-top: 40px; padding: 15px 0;">
+                        <p style="margin: 0; font-size: 0.9rem; color: black;">&copy; 2025 fladale. Tutti i diritti riservati.</p>
+                    </div>
+                </div>
+            `
+        });
+
+        res.status(201).json({ message: 'Registrazione completata. Controlla la tua email per attivare il tuo account.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Errore server durante la registrazione' });
+    }
+});
+
+//Rotta GET /attiva-account: controlla attraverso il token che l'attivazione sia stata confermata
+router.get('/attiva-account', async (req, res) => {
+    const { token } = req.query;
+    if (!token) return res.status(400).json({ error: "Token mancante" });
+
+    //Controllo token
+    try {
+        const rows = await db.query("SELECT id FROM utenti WHERE token_attivazione = ?", [token]);
+        if (!rows.length) return res.status(400).json({ error: "Token non valido o già usato" });
+
+        await db.query("UPDATE utenti SET attivo = 1, token_attivazione = NULL WHERE id = ?", [rows[0].id]);
+        res.json({ message: "Account attivato con successo!" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Errore attivazione account" });
+    }
+});
+
+//Rotta POST /login: controllo dell'account nel database
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const conn = await db.getConnection();
+        const result = await conn.query('SELECT * FROM utenti WHERE email = ?', [email]);
+        conn.release();
+
+        if (result.length === 0) {
+            return res.status(401).json({ error: "Email non trovata" });
+        }
+
+        const user = result[0];
+        if (!user.attivo) {
+            return res.status(403).json({ error: "Account non attivo. Controlla la tua email." });
+        }
+        const valid = await bcrypt.compare(password, user.password_hash);
+
+        if (valid) {
+            res.cookie('user_email', email, { path: '/' });
+            return res.status(200).json({ success: true });
+        } else {
+            return res.status(401).json({ error: "Password errata" });
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Errore del server" });
+    }
+});
+
+//Rotta GET /utente: richiede le informazioni dell'utente
+router.get('/utente', async (req, res) => {
+    const email = req.query.email;
+    try {
+        const conn = await db.getConnection();
+        const rows = await conn.query('SELECT nome, cognome, email, telefono, citta, indirizzo FROM utenti WHERE email = ?', [email]);
+        conn.release();
+
+        if (rows.length === 0) return res.status(404).json({ error: 'Utente non trovato' });
+
+        res.json(rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Errore server' });
+    }
+});
+
+//Rotta POST /utente/update: aggiorna le informazione dell'utente
+router.post('/utente/update', async (req, res) => {
+    const { email, nome, cognome, telefono, citta, indirizzo, password } = req.body;
+
+    try {
+        const conn = await db.getConnection();
+
+    if (password) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await conn.query(`
+            UPDATE utenti
+            SET nome = ?, cognome = ?, telefono = ?, citta = ?, indirizzo = ?, password_hash = ?
+            WHERE email = ?
+        `, [nome, cognome, telefono, citta, indirizzo, hashedPassword, email]);
+    } else {
+        await conn.query(`
+            UPDATE utenti
+            SET nome = ?, cognome = ?, telefono = ?, citta = ?, indirizzo = ?
+            WHERE email = ?
+        `, [nome, cognome, telefono, citta, indirizzo, email]);
+    }
+
+        conn.release();
+        res.json({ message: 'Modifiche salvate con successo' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Errore durante il salvataggio' });
+    }
+});
+
+//Rotta GET /preferiti: richiede le piante salvate dall'utente attraverso /prefetiti/add
+router.get('/preferiti', async (req, res) => {
+    const email = req.query.email;
+    try {
+        const conn = await db.getConnection();
+
+        const [utente] = await conn.query('SELECT id FROM utenti WHERE email = ?', [email]);
+        if (!utente || utente.length === 0) return res.status(404).json({ error: 'Utente non trovato' });
+
+        const results = await conn.query(`
+            SELECT p.id, p.nome, p.descrizione, p.immagine_url, p.hover_url,
+                         pr.percentuale_annaffiamento
+            FROM piante p
+            JOIN preferiti pr ON p.id = pr.id_pianta
+            WHERE pr.id_utente = ?
+        `, [utente.id]);
+
+        conn.release();
+        res.json(results);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Errore nel recupero preferiti' });
+    }
+});
+
+//Rotta POST /preferiti/add: aggiunge le informazioni della pianta ai preferiti
+router.post('/preferiti/add', async (req, res) => {
+    const { email, id_pianta } = req.body;
+
+    try {
+        const conn = await db.getConnection();
+
+        const [utente] = await conn.query('SELECT id FROM utenti WHERE email = ?', [email]);
+        if (!utente) {
+            conn.release();
+            return res.status(404).json({ error: 'Utente non trovato' });
+        }
+
+        await conn.query(`
+            INSERT INTO preferiti (id_utente, id_pianta, percentuale_annaffiamento)
+            VALUES (?, ?, 100)
+            ON DUPLICATE KEY UPDATE id_pianta = id_pianta
+        `, [utente.id, id_pianta]);
+
+        conn.release();
+        res.json({ message: 'Aggiunta ai preferiti!' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Errore durante l\'aggiunta' });
+    }
+});
+
+//Rotta POST /preferiti/delete: elimina le informazioni della pianta dai preferiti
+router.post('/preferiti/delete', async (req, res) => {
+    const { email, id_pianta } = req.body;
+    try {
+        const conn = await db.getConnection();
+
+        const [utente] = await conn.query('SELECT id FROM utenti WHERE email = ?', [email]);
+        if (!utente) return res.status(404).json({ error: 'Utente non trovato' });
+
+        await conn.query(`
+            DELETE FROM preferiti
+            WHERE id_utente = ? AND id_pianta = ?
+        `, [utente.id, id_pianta]);
+
+        conn.release();
+        res.json({ message: 'Rimossa dai preferiti' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Errore durante la rimozione' });
+    }
+});
+
+//Rotta POST /preferiti/data-annaffiamento: aggiorna la data dell'ultimo annaffiamento della pianta preferita
+//e la percentuale d'idratazione della pianta
+router.post('/preferiti/data-annaffiamento', async (req, res) => {
+    const { email, id_pianta, data } = req.body;
+
+    try {
+        const conn = await db.getConnection();
+        const [utente] = await conn.query('SELECT id FROM utenti WHERE email = ?', [email]);
+        if (!utente) {
+            conn.release();
+            return res.status(404).json({ error: 'Utente non trovato' });
+        }
+
+        // Usa la data fornita
+        const dataUsata = new Date(data);
+        const oggi = new Date();
+        const giorniPassati = Math.floor((oggi - dataUsata) / (1000 * 60 * 60 * 24));
+
+        // Recupera intervallo idrico della pianta
+        const [pianta] = await conn.query('SELECT richiesta_acqua_giorni FROM piante WHERE id = ?', [id_pianta]);
+        const intervallo = pianta?.richiesta_acqua_giorni || 7;
+
+        // Calcola nuova percentuale
+        let percentuale = Math.round(100 - (giorniPassati / intervallo) * 100);
+        if (percentuale < 0) percentuale = 0;
+        if (percentuale > 100) percentuale = 100;
+
+        // Salva data e percentuale
+        await conn.query(`
+            UPDATE preferiti
+            SET data_ultimo_annaffiamento = ?, percentuale_annaffiamento = ?
+            WHERE id_utente = ? AND id_pianta = ?
+        `, [data, percentuale, utente.id, id_pianta]);
+
+        conn.release();
+        res.json({ message: 'Data e percentuale aggiornate!', percentuale });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Errore salvataggio data' });
+    }
+});
+
+//Rotta GET /eventi-annaffiamento: crea i prossimi eventi per l'annaffiamento della pianta prendendo in considerazione 
+//l'ultimo annaffiamento e il tempo indicato tra un annaffiamento e l'altro specifico per la pianta
+router.get('/eventi-annaffiamento', async (req, res) => {
+    const email = req.query.email;
+    if (!email) return res.status(400).json({ error: "Email mancante" });
+
+    try {
+        const conn = await db.getConnection();
+
+        // Ottieni id utente
+        const [utente] = await conn.query('SELECT id FROM utenti WHERE email = ?', [email]);
+        if (!utente) {
+            conn.end();
+            return res.status(404).json({ error: "Utente non trovato" });
+        }
+
+        // Prendi piante preferite con richiesta_acqua_giorni
+        const piante = await conn.query(`
+            SELECT p.nome AS id_pianta, p.richiesta_acqua_giorni, pf.data_ultimo_annaffiamento
+            FROM preferiti pf
+            JOIN piante p ON pf.id_pianta = p.id
+            WHERE pf.id_utente = ?
+        `, [utente.id]);
+
+        const oggi = new Date();
+        const eventi = [];
+
+        piante.forEach(pianta => {
+    const intervallo = pianta.richiesta_acqua_giorni || 7;
+    const baseDate = pianta.data_ultimo_annaffiamento 
+        ? new Date(pianta.data_ultimo_annaffiamento) 
+        : oggi;
+
+    for (let i = 1; i <= 5; i++) {
+        const data = new Date(baseDate);
+        data.setDate(baseDate.getDate() + i * intervallo);
+
+        eventi.push({
+            id_pianta: pianta.id_pianta,
+            title: `Annaffiare ${pianta.id_pianta}`,
+            start: data.toISOString().split("T")[0] + "T08:00:00"
+        });
+    }
+});
+
+        conn.end();
+        res.json(eventi);
+    } catch (err) {
+        console.error("Errore eventi:", err);
+        res.status(500).json({ error: "Errore nel calcolo eventi" });
+    }
+});
+
 // Esporta tutte le rotte definite in questo file per usarle nell'app principale
 module.exports = router;

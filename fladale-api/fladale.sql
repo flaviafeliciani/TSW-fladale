@@ -6,6 +6,21 @@ CREATE USER IF NOT EXISTS "admin"@"localhost" IDENTIFIED BY "adminpassword";
 GRANT ALL PRIVILEGES ON fladale_db.* TO "admin"@"localhost";
 FLUSH PRIVILEGES;
 
+DROP TABLE IF EXISTS utenti;
+CREATE TABLE utenti (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    nome VARCHAR(100),
+    cognome VARCHAR(100),
+    telefono VARCHAR(30),
+    citta VARCHAR(100),
+    indirizzo VARCHAR(255),
+    token_accesso VARCHAR(255),
+    attivo BOOLEAN DEFAULT FALSE,
+    token_attivazione VARCHAR(255)
+);
+
 DROP TABLE IF EXISTS piante;
 CREATE TABLE piante (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,6 +45,17 @@ CREATE TABLE piante_tags (
     PRIMARY KEY (id_piante, id_tags),
     FOREIGN KEY (id_piante) REFERENCES piante(id) ON DELETE CASCADE,
     FOREIGN KEY (id_tags) REFERENCES tags(id) ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS preferiti;
+CREATE TABLE preferiti (
+    id_utente INT,
+    id_pianta INT,
+    percentuale_annaffiamento INT CHECK (percentuale_annaffiamento BETWEEN 0 AND 100),
+    data_ultimo_annaffiamento DATE,
+    PRIMARY KEY (id_utente, id_pianta),
+    FOREIGN KEY (id_utente) REFERENCES utenti(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_pianta) REFERENCES piante(id) ON DELETE CASCADE
 );
 
 INSERT INTO piante (nome, descrizione, immagine_url, hover_url, richiesta_acqua_giorni) VALUES

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>fladale | Scopri le Piante</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" href="../immagini_comuni/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/scopri_styles.css"/>
+</head>
+<body>
+    <!--video di sfondo-->
+    <div class="background"></div>
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="../home-page/video/scopri.mp4" type="video/mp4"/>
+        <p>Il tuo browser non supporta il video.</p>
+    </video>
+
+    <!-- TUTTO dentro page-wrapper -->
+    <div class="page-wrapper">
+        <!--header logo e accedi/profilo-->
+        <div class="top-section">
+            <a href="../home-page/hp_index.html" class="site-name">
+                <img src="../immagini_comuni/lg_fladale_no_bg_wheat.png" alt="Image Lg Site">
+                <img src="../immagini_comuni/wr_fladale_no_bg_wheat.png" alt="Image Wr Site">
+            </a>
+            <div id="account-area" class="login-button"></div>
+        </div>
+
+        <!--controlli filtro e visualizzazione-->
+        <div class="controls">
+            <div class="left-controls">
+                <button id="toggleViewBtn">Vista 6</button>
+            </div>
+            <div class="center-title">
+                <h1>Scopri Tutte le Piante</h1>
+            </div>
+            <div class="right-controls">
+                <button id="filterBtn">Filtri</button>
+            </div>
+        </div>
+
+        <div id="filterPopup" class="popup hidden">
+            <div class="popup-content">
+                <h3>Filtri disponibili</h3>
+                <form id="filterForm"></form>
+                <div class="popup-buttons">
+                    <button type="button" id="applyFilters">Applica</button>
+                    <button type="button" id="clearFilters">Rimuovi tutti</button>
+                </div>
+            </div>
+        </div>
+
+        <main id="plantContainer"></main>
+        <p id="noResults" class="hidden">Nessun prodotto corrisponde ai tuoi filtri.</p>
+    </div>
+
+    <!--notifiche popup-->
+    <div id="toast-popup" class="toast hidden"></div>
+
+    <footer>
+        <p>&copy; 2025 fladale. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="js/scopri_scripts.js"></script>
+</body>
+</html>

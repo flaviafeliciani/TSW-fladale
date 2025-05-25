@@ -1,0 +1,386 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: black;
+    font-family: 'Quicksand', sans-serif;
+}
+/*scrollbar trasparente*/
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.page-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/*video di sfondo*/
+#bg-video {
+    object-fit: cover;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+/*header logo e accedi/profilo*/
+.top-section {
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 30px;
+    font-family: Arial, sans-serif;
+}
+.site-name {
+    z-index: 3;
+    display: flex;
+    align-items: center;
+}
+.site-name img{
+    z-index: 3;
+    max-height: 50px;
+    max-width: 200px;
+}
+.login-button {
+    z-index: 3;
+    padding: 7px 15px;
+    background-color: transparent;
+    color: wheat;
+    border: 3px solid wheat;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+}
+.login-button a {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    color: wheat;
+    text-decoration: none;
+    padding: 10px;
+}
+.login-button:hover {
+    background-color: transparent;
+    opacity: 0.5;
+}
+.icona-profilo {
+    width: 35px;
+    height: 35px;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+.top-section a {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+.top-section a img {
+    border: none;
+    outline: none;
+}
+
+/*filtri e visualizzazione*/
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+    z-index: 3;
+}
+
+.left-controls,
+.right-controls {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.right-controls {
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.center-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: wheat;
+    font-size: 1.5rem;
+}
+
+button {
+    padding: 7px 15px;
+    z-index: 3;
+    background-color: transparent;
+    color: wheat;
+    border: 3px solid wheat;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: transparent;
+    opacity: 0.5;
+}
+
+/*popup*/
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    z-index: 10;
+}
+
+.popup-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 10px;
+    color: white;
+    width: 600px;
+}
+
+.popup-buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hidden {
+    display: none;
+}
+
+#filterForm {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.tag-group {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: white;
+}
+
+.tag-group h4 {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    color: wheat;
+}
+
+.tag-group label {
+    display: block;
+    margin: 0.2rem 0;
+}
+
+/*card pianta*/
+#plantContainer {
+    padding: 1rem;
+    z-index: 3;
+    display: grid;
+    gap: 0.8rem;
+}
+
+.card {
+    border-radius: 50px 0px;
+    text-align: center;
+    z-index: 3;
+    background: rgba(255, 255, 255, 0.2); /* semi-trasparente */
+    padding: 1rem;
+    backdrop-filter: blur(8px); /* effetto vetro */
+    -webkit-backdrop-filter: blur(8px); /* Safari support */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    color: wheat !important;
+}
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.image-wrapper {
+    border-radius: 50px 0px;
+    position: relative;
+    width: 100%;
+    height: 500px; /* default per vista 3 */
+    overflow: hidden;
+}
+
+.plant-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+.view-3 .image-wrapper {
+    height: 500px;
+}
+
+.view-6 .image-wrapper {
+    height: 200px;
+}
+
+/*visualizzazione seconda foto*/
+.hover-img {
+    opacity: 0;
+    z-index: 4;
+}
+.card:hover .hover-img {
+    opacity: 1;
+    z-index: 4;
+}
+
+.main-img {
+    opacity: 1;
+    z-index: 4;
+}
+.card:hover .main-img {
+    opacity: 0;
+    z-index: 4;
+}
+
+.view-3 #plantContainer {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.view-6 #plantContainer {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+/*0 risultati*/
+#noResults {
+    position: relative;
+    z-index: 5;
+    color: wheat;
+    font-size: 2rem;
+    text-align: center;
+    margin: 2rem;
+}
+
+/*notifiche popup*/
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #213922; 
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Quicksand', sans-serif;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.toast.show {
+    opacity: 1;
+}
+.toast.hidden {
+    display: none;
+}
+
+footer {
+    z-index: 3;
+    background-color: wheat;
+    padding: 35px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: black;
+    border-top: 1px solid wheat;
+    opacity: 1;
+}
+
+/* Media query per dispositivi con larghezza massima 1000px*/
+@media (max-width: 1000px) {
+    .top-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .center-title {
+        position: static;
+        transform: none;
+        font-size: 1.2rem;
+    }
+
+    .right-controls,
+    .left-controls {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .popup-content {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .view-3 #plantContainer {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .view-6 #plantContainer {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        overflow-x: hidden;
+    }
+
+    .view-6 .image-wrapper {
+        height: 250px;
+    }
+
+    .image-wrapper {
+        height: 300px !important;
+    }
+
+    .card {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    footer {
+        padding: 20px;
+        font-size: 0.8rem;
+    }
+}

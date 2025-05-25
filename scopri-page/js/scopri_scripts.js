@@ -101,8 +101,10 @@ async function fetchPlants() {
                 <div class="image-wrapper">
                     <img src="../immagini_comuni/piante/${p.immagine_url}" alt="${p.nome}" class="plant-image main-img">
                     <img src="../immagini_comuni/piante_hover/${p.hover_url}" alt="${p.nome}" class="plant-image hover-img">
-                    <img src="${iconaSrc}" alt="Preferiti" class="favorite-icon" data-id="${p.id}" style="position:absolute; top:10px; right:10px; width:30px; height:30px; cursor:pointer; z-index:6;">
-                </div><br><br>
+                    <div class="favorite-icon-wrapper">
+                        <img src="${iconaSrc}" alt="Preferiti" class="favorite-icon" data-id="${p.id}">
+                    </div>
+                </div><br>
                 <h3>${p.nome}</h3>
             `;
 

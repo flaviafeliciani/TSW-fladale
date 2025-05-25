@@ -1,4 +1,3 @@
-//cookie per salvataggio dati in database
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const email = document.querySelector('input[placeholder="E-mail"]');
@@ -110,26 +109,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const res = await fetch("http://localhost:8000/api/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dati)
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dati)
             });
 
             if (res.ok) {
-                // Registrazione riuscita → redirect al login
-                alert("Registrazione completata con successo!");
-                window.location.href = "../log-in-page/accesso_index.html";
+                // Mostra messaggio e reindirizza
+                showToast("Registrazione riuscita! Controlla l'email per attivare l'account.");
+                setTimeout(() => {
+                    window.location.href = "../log-in-page/accesso_index.html";
+                }, 1500);
             } else {
                 const err = await res.json();
-                alert("Errore nella registrazione: " + (err.message || "Riprova."));
+                showToast("Errore nella registrazione: " + (err.message || "Riprova."));
             }
         } catch (error) {
-            console.error("Errore di rete:", error);
-            alert("Errore di rete durante la registrazione");
+            showToast("Errore di rete durante la registrazione");
         }
     });
 });
 
+// Disabilita drag per tutti gli elementi della pagina
 document.querySelectorAll('*').forEach(element => {
   element.setAttribute('draggable', 'false');
 });
+
+// Gestione pop-up
+let toastTimeout;
+
+function showToast(messaggio, durata = 3000) {
+    const toast = document.getElementById("toast-popup");
+    if (!toast) return;
+
+    if (toastTimeout) clearTimeout(toastTimeout);
+
+    toast.textContent = messaggio;
+    toast.classList.remove("hidden");
+    toast.classList.add("show");
+
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+        toastTimeout = setTimeout(() => {
+            toast.classList.add("hidden");
+        }, 500);
+    }, durata);
+}

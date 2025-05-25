@@ -11,7 +11,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background: url(/profilo-page/img/prova5.jpeg) no-repeat;
+    background: url(../../immagini_comuni/sfondo.jpeg) no-repeat;
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -45,14 +45,14 @@ body::-webkit-scrollbar {
     max-height: 50px;
 }
 
-/*sezione blurrata form*/
+/*contenitore blurrato form*/
 .wrapper{
     width: 400px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    color: #fff;
+    color: wheat;
     border-radius: 10px;
     padding: 30px 40px
 }
@@ -77,14 +77,14 @@ body::-webkit-scrollbar {
     height: 100%;
     border: 2px solid rgba(255, 255, 255, 0.2);
     outline: none;
-    color: #fff;
+    color: wheat;
     background: transparent;
     border-radius: 40px;
     font-size: 16px;
     padding: 20px 45px 20px 20px;
 }
 .input-box input::placeholder {
-    color: #fff;
+    color: wheat;
 }
 .input-box i {
     position: absolute;
@@ -95,16 +95,16 @@ body::-webkit-scrollbar {
 }
 .wrapper .remember-forgot {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     font-size: 14.5px;
     margin: -15px 0 15px;
 }
 .remember-forgot label input {
-    accent-color: #fff;
+    accent-color: wheat;
     margin-right: 3px;
 }
 .remember-forgot a {
-    color: #fff;
+    color: wheat;
     text-decoration: none;
 }
 .remember-forgot a:hover {
@@ -121,12 +121,11 @@ body::-webkit-scrollbar {
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    color: #333; 
-    background: #e2e0e0; 
+    color: #433a29;
+    background: #aba29c;
 }
 .wrapper .btn:hover {
-    color: #333; 
-    background: #fff; 
+    background: #625d5a;
 }
 .wrapper .register-link {
     font-size: 14.5px;
@@ -134,7 +133,7 @@ body::-webkit-scrollbar {
     margin: 20px 0 15px;
 }
 .register-link p a {
-    color: #fff;
+    color: wheat;
     text-decoration: none;
     font-weight: 600;
 }
@@ -151,4 +150,32 @@ body::-webkit-scrollbar {
 }
 .error-border {
     border: 2px solid #ff7b7b !important;
+}
+
+/*migliore visualizzazione cursore*/
+input[name="email"],
+input[name="password"] {
+    cursor: default;
+}
+
+/*notifiche popup*/
+.toast {
+    position: fixed;
+    bottom: 10%;
+    align-self: center;
+    background-color: #213922; 
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Quicksand', sans-serif;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.toast.show {
+    opacity: 1;
+}
+.toast.hidden {
+    display: none;
 }

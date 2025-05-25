@@ -80,6 +80,7 @@ async function fetchPlants() {
 
         plantContainer.innerHTML = '';
 
+        // Controllo no results
         if (!piante || piante.length === 0) {
             noResults.classList.remove('hidden');
             return;
@@ -87,6 +88,7 @@ async function fetchPlants() {
 
         noResults.classList.add('hidden');
 
+        // Carica le piante
         piante.forEach(p => {
             const link = document.createElement('a');
             link.href = `../dettaglio-page/dettaglio_index.html?id=${p.id}`;
@@ -110,6 +112,7 @@ async function fetchPlants() {
 
             plantContainer.appendChild(link);
 
+            // Gestione icona
             const icon = link.querySelector(".favorite-icon");
             icon.addEventListener("click", async (e) => {
                 e.preventDefault();
@@ -118,7 +121,7 @@ async function fetchPlants() {
                 const id_pianta = icon.getAttribute("data-id");
 
                 if (!email) {
-                    showToast("Devi accedere per gestire i preferiti.");
+                    showToastNearElement(icon, "Devi accedere per gestire i preferiti.");
                     return;
                 }
 
@@ -134,6 +137,7 @@ async function fetchPlants() {
                         });
 
                         if (res.ok) {
+                            showToastNearElement(icon, "Pianta rimossa dal tuo giardino");
                             icon.src = "../immagini_comuni/pianta.png";
                             icon.title = "Rimossa dai preferiti";
                         } else {
@@ -148,6 +152,7 @@ async function fetchPlants() {
                         });
 
                         if (res.ok) {
+                            showToastNearElement(icon, "Pianta aggiunta al tuo giardino");
                             icon.src = "../immagini_comuni/piantaselezione.png";
                             icon.title = "Aggiunta ai preferiti!";
                         } else {
@@ -161,6 +166,10 @@ async function fetchPlants() {
             });
 
         });
+        const ancora = document.querySelector(".favorite-icon");
+        if (ancora) {
+            showToastNearElement(ancora, "Aggiungi una pianta al tuo giardino per vederne lo stato!");
+        }
 
     } catch (error) {
         console.error('Errore nel caricamento delle piante:', error);
@@ -177,9 +186,42 @@ function showToast(messaggio, durata = 3000) {
     if (toastTimeout) clearTimeout(toastTimeout);
 
     toast.textContent = messaggio;
+    toast.style.bottom = "10%";
+    toast.style.alignSelf = "center";
     toast.classList.remove("hidden");
     toast.classList.add("show");
 
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+        toastTimeout = setTimeout(() => {
+            toast.classList.add("hidden");
+        }, 500);
+    }, durata);
+}
+// Pop-up accanto all'elemento
+function showToastNearElement(targetElement, messaggio, durata = 3000) {
+    const toast = document.getElementById("toast-popup");
+    if (!toast || !targetElement) return;
+
+    if (toastTimeout) clearTimeout(toastTimeout);
+
+    // Inserisci messaggio
+    toast.textContent = messaggio;
+
+    // Calcola posizione dell’elemento target
+    const rect = targetElement.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+
+    // Posiziona il toast accanto l’elemento
+    toast.style.top = `${rect.bottom + scrollTop -100}px`;
+    toast.style.left = `${rect.left + scrollLeft -150}px`;
+
+    // Mostra il toast
+    toast.classList.remove("hidden");
+    requestAnimationFrame(() => toast.classList.add("show"));
+
+    // Nascondi dopo durata
     toastTimeout = setTimeout(() => {
         toast.classList.remove("show");
         toastTimeout = setTimeout(() => {
@@ -218,6 +260,7 @@ clearFiltersBtn.addEventListener('click', () => {
     fetchPlants();
 });
 
+// Aggiorna la page quando sotto un certo limite
 function aggiornaVistaResponsiva() {
     const larghezza = window.innerWidth;
 

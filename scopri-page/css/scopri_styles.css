@@ -179,6 +179,7 @@ button:hover {
     display: none;
 }
 
+/*filtri*/
 #filterForm {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -315,9 +316,7 @@ button:hover {
 
 /*notifiche popup*/
 .toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    position: absolute;
     background-color: #213922; 
     color: white;
     padding: 12px 20px;
@@ -335,6 +334,7 @@ button:hover {
     display: none;
 }
 
+/*footer*/
 footer {
     z-index: 3;
     background-color: wheat;

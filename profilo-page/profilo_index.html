@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../immagini_comuni/favicon.ico" type="image/x-icon">
+    <title>fladale | Il Tuo Profilo</title>
+    <link rel="stylesheet" href="css/profilo_styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <!-- logo e nome sito per pagina home -->
+    <a href="../home-page/hp_index.html" class="site-name">
+        <img src="../immagini_comuni/lg_fladale_no_bg_wheat.png" alt="Logo Fladale" class="logo-img">
+        <img src="../immagini_comuni/wr_fladale_no_bg_wheat.png" alt="Scritta Fladale" class="logo-scritta">
+    </a>
+
+    <!-- form per le modifiche--> 
+    <div class="wrapper">
+        <form id="profilo-form">
+            <h1>Il tuo profilo</h1>
+            <h3 id="email-utente" class="email-sottotitolo"></h3>
+
+            <div class="input-box">
+                <input type="text" name="nome" disabled>
+                <button type="button" class="modifica-btn">Modifica</button>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="cognome" disabled>
+                <button type="button" class="modifica-btn">Modifica</button>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="telefono" disabled>
+                <button type="button" class="modifica-btn">Modifica</button>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="citta" disabled>
+                <button type="button" class="modifica-btn">Modifica</button>
+            </div>
+
+            <div class="input-box">
+                <input type="text" name="indirizzo" disabled>
+                <button type="button" class="modifica-btn">Modifica</button>
+            </div>
+
+            <div class="input-box">
+                <input type="password" name="password" placeholder="Nuova password" autocomplete="current-password">
+                <button type="button" class="modifica-btn">Modifica</button>
+            </div>
+
+            <!-- reinvio alla pagina giardino -->
+            <div class="giardino-box">
+                <span class="giardino-label">Le tue piante?</span>
+                <a href="../giardino-page/giardino_index.html" class="btn btn-mini">Giardino 🌿</a>
+            </div>
+
+            <!-- bottone salvataggio modifiche-->
+            <button type="submit" class="btn">Salva modifiche</button>
+
+            <!-- bottone logout-->
+            <button type="button" class="btn logout">Esci</button>
+
+        </form>
+    </div>
+    <!-- notifiche popup-->
+    <div id="toast-popup" class="toast hidden"></div>
+    <script src="js/profilo_scripts.js"></script>
+</body>
+</html>

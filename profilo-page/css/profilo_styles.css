@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../../immagini_comuni/sfondo.jpeg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 80px; 
+    overflow-x: hidden; 
+}
+
+
+/*scrollbar trasparente*/
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/*logo e nome sito*/
+.logo-img {
+    max-height: 50px;
+    transition: opacity 0.3s ease;
+}
+.site-name {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    text-decoration: none;
+} 
+.logo-img {
+    max-height: 50px;
+}
+.logo-scritta {
+    max-height: 50px;
+}
+
+/*contenitore blurrato*/
+.wrapper {
+    max-width: 600px;
+    width: 100%;
+    min-height: 90%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: wheat;
+    border-radius: 10px;
+    padding: 40px 50px;
+}
+.wrapper h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.email-sottotitolo {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: wheat;
+    opacity: 0.9;
+}
+
+/*campi input*/
+.input-box {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.input-box input::placeholder {
+    color: #ccc;
+}
+.input-box input {
+    flex: 1;
+    height: 45px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    color: wheat;
+    background: transparent;
+    border-radius: 40px;
+    font-size: 16px;
+    padding: 0 20px;
+    cursor: default;
+}
+.input-box input:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    cursor: not-allowed;
+}.input-error {
+    color: #ff7373;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.error-border {
+    border-color: #ff7373 !important;
+}
+
+/*bottone modifica per ogni campo*/
+.modifica-btn {
+    background-color: wheat;
+    color: #433a29;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.modifica-btn:hover {
+    background-color: rgb(177, 161, 131);
+}
+
+/*bottone conferma modifiche*/
+.btn {
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: #433a29;
+    background: #aba29c;
+    margin-top: 15px;
+}
+.btn:hover {
+    background: #625d5a;
+}
+
+/*bottone e scritta reindirizzamento a giardino*/
+.giardino-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;        
+    gap: 12px;
+    margin-top: 20px;
+    white-space: nowrap;  
+}
+.giardino-label {
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+}
+.btn-mini {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 40px;
+    background: rgb(123, 81, 74);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-mini:hover {
+    background-color: #472d2c;
+}
+
+/*bottone logout*/
+.logout {
+    background-color: #9696be;
+    color: white;
+}
+.logout:hover {
+    background-color: #5d5da8;
+}
+
+/*messaggi popup*/
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #213922; 
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Quicksand', sans-serif;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.toast.show {
+    opacity: 1;
+}
+.toast.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 100px 20px;
+        flex-direction: column;
+    }
+
+    .wrapper {
+        width: 100%;
+        max-width: 400px;
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .email-sottotitolo {
+        font-size: 15px;
+    }
+
+    .input-box {
+        flex-wrap: nowrap; /* resta affiancato */
+        gap: 10px;
+    }
+
+    .input-box input {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    .modifica-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .giardino-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-mini {
+        width: 100%;
+    }
+
+    .toast {
+        right: 10px;
+        left: 10px;
+        width: auto;
+    }
+}

@@ -213,10 +213,25 @@ function showToastNearElement(targetElement, messaggio, durata = 3000) {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
 
-    // Posiziona il toast accanto l’elemento
-    toast.style.top = `${rect.bottom + scrollTop -100}px`;
-    toast.style.left = `${rect.left + scrollLeft -150}px`;
+    // Dimensione del toast e della viewport
+    const toastWidth = toast.offsetWidth || 250; // fallback
+    const viewportWidth = window.innerWidth;
 
+    // Posizione desiderata (accanto al target)
+    let left = rect.left + scrollLeft - 50;
+    let top = rect.bottom + scrollTop - 100;
+
+    // Assicura che non sfori a destra
+    if (left + toastWidth > scrollLeft + viewportWidth - 10) {
+        left = scrollLeft + viewportWidth - toastWidth - 10;
+    }
+
+    // Assicura che non sfori a sinistra
+    left = Math.max(left, 10);
+
+    // Applica posizione
+    toast.style.top = `${top}px`;
+    toast.style.left = `${left}px`;
     // Mostra il toast
     toast.classList.remove("hidden");
     requestAnimationFrame(() => toast.classList.add("show"));
@@ -264,10 +279,10 @@ clearFiltersBtn.addEventListener('click', () => {
 function aggiornaVistaResponsiva() {
     const larghezza = window.innerWidth;
 
-    if (larghezza < 1000) {
+    if (larghezza <= 1000) {
         currentView = 3;
         document.body.classList.remove('view-3', 'view-6');
-        document.body.classList.add('view-6');
+        document.body.classList.add('view-3');
         toggleViewBtn.style.display = "none";
     } else {
         currentView = 6;

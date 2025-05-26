@@ -238,9 +238,9 @@ footer {
   }
 
   .immagine {
-    flex: unset;                /* rimuove il comportamento flex di desktop */
+    flex: unset;               
     max-width: unset;
-    width: 90vw;                /* 90% della larghezza schermo */
+    width: 90vw;                
     height: calc(90vw * 0.66);  /* rapporto 3:2 */
     margin: 0 auto;
     border-radius: 10px;
@@ -265,12 +265,21 @@ footer {
 
   .galleria-piante {
     padding: 0 10px;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
   }
+
+  .galleria-piante::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+ }
 
   .pianta {
     flex: 0 0 auto;
-    max-width: 140px;
+    scroll-snap-align: start;
   }
 
   .pianta img {
@@ -367,8 +376,85 @@ footer {
 
 @media screen and (max-width: 500px) {
   .top-section {
+    flex-direction: row;         
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+    padding: 10px 20px
+  }
+
+  .site-name img {
+    max-width: 140px;  /* logo più piccolo su mobile */
+  }
+
+  .login-button {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1366px) {
+  .galleria-piante {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* essenziale per iPad */
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+  }
+
+  .galleria-piante::-webkit-scrollbar {
+    display: none;  /* Chrome/Safari */
+  }
+
+  .pianta {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  }
+
+  .riga {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .testo, .immagine {
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .immagine {
+    margin-bottom: 70px; /* spazio tra immagine e testo */
+  }
+
+  .testo h2 {
+    text-align: center;
+  }
+
+  .testo p {
+    margin-bottom: 0; /* meno spazio sotto al testo */
+  }
+
+  .freccia {
+    display: none !important;
+  }
+
+  .blocco {
+    margin-bottom: 0; /* evitiamo doppio spazio */
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .galleria-container {
+    margin-top: 10px;
+    margin-bottom: 80px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* linea chiara e delicata */
   }
 }

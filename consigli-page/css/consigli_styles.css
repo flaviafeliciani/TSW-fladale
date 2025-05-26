@@ -1,0 +1,374 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+* {
+  user-select: none;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.glass-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0.5; /* puoi regolare per leggibilità */
+  pointer-events: none; /* non blocca clic su contenuti sopra */
+}
+
+body {
+  position: relative;
+  background: black;
+  font-family: 'Quicksand', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+header {
+  background: transparent;
+  margin: 30px auto 100px auto;
+  text-align: center;
+}
+
+.header-container h1 {
+  font-size: 3em;
+  color: #8ee764;
+  margin: 0;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.header-container p {
+  font-size: 1.2em;
+  color: #fff;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+main {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.riga {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.immagine {
+  position: relative;
+  flex: 1 1 600px;
+  max-width: 600px;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.immagine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.etichetta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.testo {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+.testo h2 {
+  font-size: 1.8em;
+  color: #8ee764;
+  margin-bottom: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.testo p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* Galleria con frecce esterne */
+.galleria-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.galleria-piante {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.pianta {
+  flex: 0 0 200px;
+  text-align: center;
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+
+.pianta img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: opacity 0.3s ease;
+  display: block;
+}
+
+.pianta p {
+  font-size: 0.85em;
+  margin-top: 6px;
+  color: #fff;
+}
+
+.freccia {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.freccia svg {
+  display: block;
+  fill: white;
+}
+
+.freccia.sinistra {
+  left: -40px;
+}
+
+.freccia.destra {
+  right: -40px;
+}
+
+.galleria-container:hover .freccia {
+  opacity: 1;
+}
+
+footer {
+  background-color: #8ee76498;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: black;
+  border-top: 1px solid #8ee764;
+  margin-top: 80px;
+  opacity: 0.8;
+}
+
+.collegamento-sezione {
+  text-align: center;
+  margin: 60px 0 40px 0;
+  font-size: 1.1em;
+}
+
+.collegamento-sezione a {
+  color: #23a89d;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 2px solid #23a89d;
+  transition: all 0.2s ease;
+}
+
+.collegamento-sezione a:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 768px) {
+  .galleria-container {
+    justify-content: center;
+  }
+
+  .riga {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .immagine {
+    flex: unset;                /* rimuove il comportamento flex di desktop */
+    max-width: unset;
+    width: 90vw;                /* 90% della larghezza schermo */
+    height: calc(90vw * 0.66);  /* rapporto 3:2 */
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .immagine img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* l'immagine riempie il riquadro */
+    display: block;
+  }
+
+  .testo {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .testo h2 {
+    text-align: center;
+  }
+
+  .galleria-piante {
+    padding: 0 10px;
+    justify-content: center;
+  }
+
+  .pianta {
+    flex: 0 0 auto;
+    max-width: 140px;
+  }
+
+  .pianta img {
+    width: 100%;
+    height: auto;
+    max-width: 140px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .freccia {
+    display: none !important;
+  }
+
+  .etichetta {
+    font-size: 1rem;   /* etichetta leggermente più piccola su mobile */
+    padding: 8px;
+  }
+}
+
+
+/* --- BARRA SUPERIORE CON LOGO E LOGIN --- */
+.top-section {
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  font-family: Arial, sans-serif;
+}
+.site-name {
+  z-index: 3;
+}
+.site-name img{
+  z-index: 3;
+  max-height: 50px;
+  max-width: 200px;
+}
+.login-button {
+  z-index: 3;
+  padding: 7px 15px;
+  background-color: transparent;
+  color: wheat;
+  border: 3px solid wheat;
+  border-radius: 100px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.login-button a {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.2rem;
+  color: wheat;
+  text-decoration: none;
+  padding: 10px;
+}
+.login-button:hover {
+  background-color: transparent;
+  opacity: 0.5;
+}
+
+.top-section a {
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+.top-section a img {
+  border: none;
+  outline: none;
+}
+
+.icona-profilo {
+  width: 35px;
+  height: 35px;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icona-aggiungi {
+  width: 10px;
+  height: 10px;
+  margin-top: 8px;
+  transition: transform 0.2s ease;
+}
+
+.icona-aggiungi:hover {
+  transform: scale(1.1);
+}
+
+@media screen and (max-width: 500px) {
+  .top-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

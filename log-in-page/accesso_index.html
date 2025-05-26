@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = "it">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>fladale | Accedi</title>
+        <link rel="icon" href="../immagini_comuni/favicon.ico" type="image/x-icon">
+        <link rel = "stylesheet" href = "css/login_styles.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <!-- logo e nome sito per pagina home -->
+        <a href="../home-page/hp_index.html" class="site-name">
+            <img src="../immagini_comuni/lg_fladale_no_bg_wheat.png" alt="Logo Fladale" class="logo-img">
+            <img src="../immagini_comuni/wr_fladale_no_bg_wheat.png" alt="Scritta Fladale" class="logo-scritta">
+        </a>
+        <!--contenitore form-->
+        <div class = "wrapper">
+        <form id="login-form">
+                <h1> Login </h1>
+                <div class = "input-box">
+                    <input type="text" name="email" placeholder="Username" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class = "input-box">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class = "remember-forgot">
+                    <a href="../password-dimenticata-page/forgot_index.html"> Password dimenticata? </a>
+                </div>
+                <button type="submit" class="btn"> Login </button>
+                <div class = "register-link">
+                    <p> Non hai un account? <a href="registrazione_index.html"> Registrati </a> </p>
+                </div>
+            </form>
+        </div>
+        <!--notifiche popup-->
+        <div id="toast-popup" class="toast hidden"></div>
+        <script src="js/login_scripts.js"></script>
+    </body>
+</html>

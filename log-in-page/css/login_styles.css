@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    user-select: none;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../../immagini_comuni/sfondo.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+/*logo e nome sito*/
+.logo-img {
+    max-height: 50px;
+    transition: opacity 0.3s ease;
+}
+.logo-img:hover {
+    opacity: 0.7;
+}
+.site-name {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    text-decoration: none;
+} 
+.logo-img {
+    max-height: 50px;
+}
+.logo-scritta {
+    max-height: 50px;
+}
+
+/*contenitore blurrato form*/
+.wrapper{
+    width: 400px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    color: wheat;
+    border-radius: 10px;
+    padding: 30px 40px
+}
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+.wrapper .password-requirements {
+    font-size: 12px;
+    margin: 30px 15px 0;
+    
+}
+/*sezione input form*/
+.input-box input {
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    color: wheat;
+    background: transparent;
+    border-radius: 40px;
+    font-size: 16px;
+    padding: 20px 45px 20px 20px;
+}
+.input-box input::placeholder {
+    color: wheat;
+}
+.input-box i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+.wrapper .remember-forgot {
+    display: flex;
+    justify-content: center;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+.remember-forgot label input {
+    accent-color: wheat;
+    margin-right: 3px;
+}
+.remember-forgot a {
+    color: wheat;
+    text-decoration: none;
+}
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+/*bottone*/
+.wrapper .btn {
+    width: 100%;
+    height: 45px;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    color: #433a29;
+    background: #aba29c;
+}
+.wrapper .btn:hover {
+    background: #625d5a;
+}
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+.register-link p a {
+    color: wheat;
+    text-decoration: none;
+    font-weight: 600;
+}
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/*errori*/
+.input-error {
+    color: #ff7b7b;
+    font-size: 13px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+.error-border {
+    border: 2px solid #ff7b7b !important;
+}
+
+/*migliore visualizzazione cursore*/
+input[name="email"],
+input[name="password"] {
+    cursor: default;
+}
+
+/*notifiche popup*/
+.toast {
+    position: fixed;
+    bottom: 10%;
+    align-self: center;
+    background-color: #213922; 
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Quicksand', sans-serif;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.toast.show {
+    opacity: 1;
+}
+.toast.hidden {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    width: 90%;
+    padding: 30px 25px; /* più spazio interno su dispositivi mobili */
+  }
+
+  .wrapper h1 {
+    font-size: 28px;
+  }
+
+  .input-box input {
+    font-size: 15px;
+    padding: 18px 40px 18px 18px;
+  }
+
+  .wrapper .btn {
+    font-size: 15px;
+  }
+
+  .register-link {
+    font-size: 13px;
+  }
+}

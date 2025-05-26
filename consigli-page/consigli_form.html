@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>fladale | Trova la tua pianta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" href="../immagini_comuni/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/form_styles.css">
+</head>
+<body>
+    <div class="top-section">
+        <a href="../home-page/hp_index.html" class="site-name"><img src="../immagini_comuni/lg_fladale_no_bg_wheat.png" alt="Image Lg Site"><img src="../immagini_comuni/wr_fladale_no_bg_wheat.png" alt="Image Wr Site"></a>
+        <div id="account-area" class="login-button"></div>
+    </div>
+    <div class="card">
+        <h2>Trova la pianta giusta per te</h2>
+
+        <form id="plantForm">
+            <select name="luogo" id="luogo">
+                <option value="">Seleziona il luogo</option>
+                <option>Esterno</option>
+                <option>Ufficio</option>
+                <option>Salotto</option>
+                <option>Cucina</option>
+                <option>Camera</option>
+                <option>Bagno</option>
+            </select>
+        
+            <select name="luce" id="luce">
+                <option value="">Seleziona la luce</option>
+                <option>Sole</option>
+                <option>Penombra</option>
+                <option>Ombra</option>
+            </select>
+        
+            <select name="ambiente" id="ambiente">
+                <option value="">Ambiente</option>
+                <option>Umido</option>
+                <option>Secco</option>
+            </select>
+    
+            <select name="cura" id="cura">
+                <option value="">Cura</option>
+                <option>Facile</option>
+                <option>Intermedia</option>
+                <option>Difficile</option>
+            </select>
+
+            <select name="grandezza" id="grandezza">
+                <option value="">Grandezza</option>
+                <option>Piccola</option>
+                <option>Media</option>
+                <option>Grande</option>
+            </select>
+        
+            <button type="submit">Cerca Pianta</button>
+        </form>
+        
+
+        <div id="risultato"></div>
+        <div id="loader" class="hidden">Caricamento...</div>
+    </div>
+    <footer>
+        <p>&copy; 2025 fladale. Tutti i diritti riservati.</p>
+    </footer>
+    <script src="js/form_scripts.js"></script>
+</body>
+</html>
+

@@ -53,7 +53,7 @@ header {
 
 .header-container h1 {
   font-size: 3em;
-  color: #ff6f61;
+  color: #8ee764;
   margin: 0;
   font-weight: 700;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -116,7 +116,7 @@ main {
 
 .testo h2 {
   font-size: 1.8em;
-  color: #ff6f61;
+  color: #8ee764;
   margin-bottom: 10px;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -199,12 +199,12 @@ main {
 }
 
 footer {
-  background-color: #ff6f61;
+  background-color: #8ee76498;
   padding: 20px;
   text-align: center;
   font-size: 0.9rem;
   color: black;
-  border-top: 1px solid #ff6f61;
+  border-top: 1px solid #8ee764;
   margin-top: 80px;
   opacity: 0.8;
 }
@@ -216,10 +216,10 @@ footer {
 }
 
 .collegamento-sezione a {
-  color: #ff6f61;
+  color: #23a89d;
   font-weight: bold;
   text-decoration: none;
-  border-bottom: 2px solid #ff6f61;
+  border-bottom: 2px solid #23a89d;
   transition: all 0.2s ease;
 }
 
@@ -228,20 +228,30 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+  .galleria-container {
+    justify-content: center;
+  }
+
   .riga {
     flex-direction: column;
-    align-items: stretch;
     gap: 30px;
   }
 
   .immagine {
-    height: auto;
-    max-height: 300px;
-    width: 100%;
+    flex: unset;                /* rimuove il comportamento flex di desktop */
+    max-width: unset;
+    width: 90vw;                /* 90% della larghezza schermo */
+    height: calc(90vw * 0.66);  /* rapporto 3:2 */
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   .immagine img {
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* l'immagine riempie il riquadro */
+    display: block;
   }
 
   .testo {
@@ -254,20 +264,30 @@ footer {
   }
 
   .galleria-piante {
-    gap: 12px;
+    padding: 0 10px;
+    justify-content: center;
   }
 
   .pianta {
-    flex: 0 0 140px;
+    flex: 0 0 auto;
+    max-width: 140px;
   }
 
   .pianta img {
-    width: 140px;
-    height: 140px;
+    width: 100%;
+    height: auto;
+    max-width: 140px;
+    margin: 0 auto;
+    display: block;
   }
 
   .freccia {
     display: none !important;
+  }
+
+  .etichetta {
+    font-size: 1rem;   /* etichetta leggermente più piccola su mobile */
+    padding: 8px;
   }
 }
 

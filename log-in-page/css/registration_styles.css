@@ -187,3 +187,27 @@ input[name="indirizzo"] {
 .toast.hidden {
     display: none;
 }
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    width: 90%;
+    padding: 30px 25px; /* più spazio interno su dispositivi mobili */
+  }
+
+  .wrapper h1 {
+    font-size: 28px;
+  }
+
+  .input-box input {
+    font-size: 15px;
+    padding: 18px 40px 18px 18px;
+  }
+
+  .wrapper .btn {
+    font-size: 15px;
+  }
+
+  .register-link {
+    font-size: 13px;
+  }
+}

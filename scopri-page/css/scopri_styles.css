@@ -221,7 +221,7 @@ button:hover {
     text-align: center;
     z-index: 3;
     background: rgba(255, 255, 255, 0.2); /* semi-trasparente */
-    padding: 1rem;
+    padding: 7%;
     backdrop-filter: blur(8px); /* effetto vetro */
     -webkit-backdrop-filter: blur(8px); /* Safari support */
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -231,6 +231,9 @@ button:hover {
     text-decoration: none;
     color: inherit;
     display: block;
+}
+.card h3 {
+    font-size: clamp(0.8rem, 1vw, 2rem);
 }
 .image-wrapper {
     border-radius: 50px 10px;
@@ -316,6 +319,7 @@ button:hover {
 
 /*notifiche popup*/
 .toast {
+    font-size: clamp(0.7rem, 2vw, 1rem);
     position: absolute;
     background-color: #213922; 
     color: white;
@@ -345,15 +349,16 @@ footer {
     border-top: 1px solid wheat;
     opacity: 1;
 }
-
-/* Media query per dispositivi con larghezza massima 1000px*/
-@media (max-width: 1000px) {
+/* Media query per dispositivi con larghezza massima 768px */
+@media (max-width: 768px) {
     .top-section {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
     }
-
+}
+/* Media query per finestre con larghezza massima 1000px*/
+@media (max-width: 1000px) {
     .controls {
         flex-direction: column;
         align-items: center;
@@ -378,26 +383,36 @@ footer {
         padding: 1rem;
     }
 
-    .view-3 #plantContainer {
-        grid-template-columns: repeat(1, 1fr);
+    .favorite-icon-wrapper {
+        height: 35px;
+        width: 35px;
     }
 
-    .view-6 #plantContainer {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    .favorite-icon {
+        height: 17px;
+        width: 17px;
+    }
+
+    .view-3 #plantContainer {
+        grid-template-columns: repeat(3, 1fr);
         overflow-x: hidden;
     }
 
-    .view-6 .image-wrapper {
-        height: 250px;
-    }
-
     .image-wrapper {
-        height: 300px !important;
+        max-height: 125px;
+        bottom: 0;
+    }
+    
+    .card {
+        padding: 5%;
+        min-width: 0;
+        height: 180px;
+        overflow: hidden;
     }
 
-    .card {
-        min-width: 0;
-        overflow: hidden;
+    .card h3 {
+        top: 0;
+        font-size: 60%;
     }
 
     footer {

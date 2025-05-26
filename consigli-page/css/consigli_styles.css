@@ -227,80 +227,6 @@ footer {
   opacity: 0.5;
 }
 
-@media screen and (max-width: 768px) {
-  .galleria-container {
-    justify-content: center;
-  }
-
-  .riga {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .immagine {
-    flex: unset;               
-    max-width: unset;
-    width: 90vw;                
-    height: calc(90vw * 0.66);  /* rapporto 3:2 */
-    margin: 0 auto;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .immagine img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* l'immagine riempie il riquadro */
-    display: block;
-  }
-
-  .testo {
-    max-width: 100%;
-    padding: 0 10px;
-  }
-
-  .testo h2 {
-    text-align: center;
-  }
-
-  .galleria-piante {
-    padding: 0 10px;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-  }
-
-  .galleria-piante::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
- }
-
-  .pianta {
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-  }
-
-  .pianta img {
-    width: 100%;
-    height: auto;
-    max-width: 140px;
-    margin: 0 auto;
-    display: block;
-  }
-
-  .freccia {
-    display: none !important;
-  }
-
-  .etichetta {
-    font-size: 1rem;   /* etichetta leggermente più piccola su mobile */
-    padding: 8px;
-  }
-}
-
-
 /* --- BARRA SUPERIORE CON LOGO E LOGIN --- */
 .top-section {
   z-index: 3;
@@ -374,15 +300,80 @@ footer {
   transform: scale(1.1);
 }
 
-@media screen and (max-width: 500px) {
-  .top-section {
-    flex-direction: row;         
-    justify-content: space-between;
-    align-items: center;
-    gap: 0;
-    padding: 10px 20px
+@media screen and (max-width: 768px) {
+  .galleria-container {
+    justify-content: center;
   }
 
+  .riga {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .immagine {
+    flex: unset;               
+    max-width: unset;
+    width: 90vw;                
+    height: calc(90vw * 0.66);  /* rapporto 3:2 */
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .immagine img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* l'immagine riempie il riquadro */
+    display: block;
+  }
+
+  .testo {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .testo h2 {
+    text-align: center;
+  }
+
+  .galleria-piante {
+    padding: 0 10px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .galleria-piante::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+ }
+
+  .pianta {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .pianta img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .freccia {
+    display: none !important;
+  }
+
+  .etichetta {
+    font-size: 1rem;   /* etichetta leggermente più piccola su mobile */
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 500px) {
   .site-name img {
     max-width: 140px;  /* logo più piccolo su mobile */
   }
@@ -390,6 +381,14 @@ footer {
   .login-button {
     font-size: 0.9rem;
     padding: 5px 10px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .top-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 }
 
@@ -412,9 +411,13 @@ footer {
     display: none;  /* Chrome/Safari */
   }
 
-  .pianta {
-  flex: 0 0 auto;
-  scroll-snap-align: start;
+  .pianta img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
   }
 
   .riga {

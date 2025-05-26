@@ -262,14 +262,6 @@ footer {
     max-width: 150px;
   }
 
-  .top-section {
-    flex-direction: row;         
-    justify-content: space-between;
-    align-items: center;
-    gap: 0;
-    padding: 10px 20px
-  }
-
   .site-name img {
     max-width: 140px;  /* logo più piccolo su mobile */
   }

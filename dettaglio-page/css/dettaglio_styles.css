@@ -1,0 +1,393 @@
+* {
+    user-select: none;
+}
+html, body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/sfondo.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    overflow-y: scroll;
+    position: relative;
+}
+/*scrollbar trasparente*/
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/*header logo e accedi/profilo*/
+.top-section {
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 30px;
+    font-family: Arial, sans-serif;
+}
+.site-name {
+    z-index: 3;
+    display: flex;
+    align-items: center;
+}
+.site-name img{
+    z-index: 3;
+    max-height: 50px;
+    max-width: 200px;
+}
+.login-button {
+    z-index: 3;
+    padding: 7px 15px;
+    background-color: transparent;
+    color: wheat;
+    border: 3px solid wheat;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1rem;
+}
+.login-button a {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    color: wheat;
+    text-decoration: none;
+    padding: 10px;
+}
+.login-button:hover {
+    background-color: transparent;
+    opacity: 0.5;
+}
+.icona-profilo {
+    width: 35px;
+    height: 35px;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+.top-section a {
+    text-decoration: none;
+    border: none;
+    outline: none;
+}
+.top-section a img {
+    border: none;
+    outline: none;
+}
+.header-container {
+    text-align: center;
+    margin-top: 40px;
+}
+.header-container h1 {
+    font-size: 3em;
+    margin: 0;
+    font-weight: 700;
+    color: rgb(130, 185, 130);
+}
+.header-container p {
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-style: italic;
+    color: wheat;
+}
+
+/*contenitore pianta*/
+.plant-container {
+    color: black;
+    position: relative;
+    top: 100px;
+    left: 10%;
+    width: 80%;
+    gap: 10%;
+    border-radius: 100px;
+    background-color: rgb(130, 185, 130);
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch; 
+}
+.plant-image {
+    position: relative;
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: visible; 
+}
+/*bottone preferiti*/
+#add-favorite-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+}
+
+.icona-pref {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/*foto e hover pianta*/
+#immagine-pianta,
+#hover-pianta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;     
+    height: 120%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+    border-radius: 10px;
+    transition: opacity 0.3s ease;
+}
+#hover-pianta {
+    opacity: 0;
+    z-index: 2;
+}
+.plant-image:hover #hover-pianta {
+    opacity: 1;
+}
+.plant-image:hover #immagine-pianta {
+    opacity: 0;
+}
+
+/*descrizione pianta*/
+.plant-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 90%;
+}
+.plant-info h2 {
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    padding: 3%;
+}
+.plant-details {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.plant-details li {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 5%;
+}
+.icon-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+    margin-top: 2px;
+    margin-right: 13px;
+}
+.plant-details strong {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 2px;
+    font-size: 1.3rem;
+    right: 5%;
+}
+.descrizione-container {
+    position: relative;
+    top: 200px;
+    left: 15%;
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5%;
+    background-color: rgb(68, 154, 68);
+    border-radius: 10px 50px;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+.descrizione-testo {
+    flex: 2;
+    color: black;
+}
+
+.descrizione-testo h1 {
+    color: rgb(1, 50, 1);
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+#descrizione-pianta {
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    padding-right: 10px;
+}
+
+.descrizione-mappa {
+    flex: 1;
+    text-align: center;
+    align-self: center;
+    color: black;
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+#map-origine {
+    width: 100%;
+    border: 5px dotted rgb(1, 50, 1);
+    border-radius: 30px;
+}
+
+/*mappa negozi vicini*/
+.plant-map {
+    width: 100%;
+    margin-top: 250px;
+    margin-bottom: 10px;
+    color: wheat;
+}
+.plant-map h3{
+    padding: 20px 30px;
+    font-size: 24px;
+}
+#map {
+    position: relative;
+    top: 25px;
+    left: 10%;
+    width: 80%;
+    min-height: 400px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+/*notifiche popup*/
+.toast {
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    position: absolute;
+    background-color: #213922; 
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Quicksand', sans-serif;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.toast.show {
+    opacity: 1;
+}
+.toast.hidden {
+    display: none;
+}
+
+/*footer copy*/
+footer {
+  background-color: rgb(130, 185, 130);
+  padding: 25px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: black;
+  border-top: 1px solid rgb(130, 185, 130);
+  margin-top: 80px;
+  opacity: 0.8;
+}
+@media (max-width: 1000px) {
+    .top-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header-container h1 {
+        font-size: 2em;
+    }
+
+    .plant-container {
+        flex-direction: column;
+        width: 90%;
+        left: 5%;
+        top: 100px;
+        border-radius: 30px;
+    }
+
+    .plant-image {
+        max-width: 90%;
+        aspect-ratio: 1/1;
+        margin-bottom: 60px;
+        align-self: center;
+    }
+
+    .plant-info {
+        max-width: 90%;
+        align-self: center;
+    }
+
+    .plant-info h2 {
+        font-size: 1.8rem;
+        text-align: center;
+        padding: 0%;
+    }
+
+    .plant-details {
+        font-size: 1.1rem;
+    }
+
+    .descrizione-container {
+        flex-direction: column;
+        width: 90%;
+        left: 5%;
+        border-radius: 20px;
+    }
+
+    .descrizione-testo h1 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    #descrizione-pianta {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .descrizione-mappa {
+        margin-top: 20px;
+    }
+
+    .plant-map h3 {
+        font-size: 1.2rem;
+        text-align: center;
+        padding: 10px;
+    }
+
+    #map {
+        left: 5%;
+        width: 90%;
+        top: 0;
+        min-height: 300px;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        padding: 20px;
+    }
+}

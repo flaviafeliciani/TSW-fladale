@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title id="titolo-pagina">Dettaglio Pianta</title>
+    <link rel="stylesheet" href="css/dettaglio_styles.css">
+    <link rel="icon" href="../immagini_comuni/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-wrapper">
+        <!--header logo e accedi/profilo-->
+        <div class="top-section">
+            <a href="../home-page/hp_index.html" class="site-name"><img src="../immagini_comuni/lg_fladale_no_bg_wheat.png" alt="Image Lg Site"><img src="../immagini_comuni/wr_fladale_no_bg_wheat.png" alt="Image Wr Site"></a>
+            <div id="account-area" class="login-button"></div>
+        </div>
+        <header>        
+            <div class="header-container">
+                <h1 id="titolo-pianta">Caricamento...</h1>
+                <p id="sottotitolo-pianta"></p>
+            </div>
+        </header>
+        <!--contenitore pianta foto e informazioni cura-->
+        <div class="plant-container">
+            <div class="plant-image">
+                <button id="add-favorite-btn" title="Aggiungi ai preferiti">
+                    <img src="../immagini_comuni/pianta.png" alt="Aggiungi ai preferiti" class="icona-pref">
+                </button>
+                <img id="immagine-pianta" src="" alt="Immagine pianta">
+                <img id="hover-pianta" src="" alt="Hover pianta">
+            </div>
+
+            <div class="plant-info">
+                <h2 id="cura-titolo">Prendersi cura della pianta</h2>
+                <ul class="plant-details" id="lista-dettagli"></ul>
+            </div>
+        </div>
+        <!--contenitore descrizione-->
+        <div class="descrizione-container">
+            <div class="descrizione-testo">
+                <h1>Descrizione:</h1>
+                <p id="descrizione-pianta"></p>
+            </div>
+            <div class="descrizione-mappa">
+                <img id="map-origine" alt="Mappa origine">
+                <p>Origine: <span id="map-nome"></span></p>
+            </div>
+        </div>
+        <!--contenitore mappa-->
+        <div class="plant-map">
+            <h3>Scopri subito i fiorai più vicini a te!</h3>
+            <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d39955.465143440146!2d12.51135485368246!3d41.89914263477155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1svivaio!5e0!3m2!1sit!2sit!4v1747849390058!5m2!1sit!2sit"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+    <!--footer copy-->
+    <footer>
+        <p>&copy; 2025 fladale. Tutti i diritti riservati.</p>
+    </footer>
+
+    <div id="toast-popup" class="toast hidden"></div>
+
+    <script src="js/descrizioni.js"></script>
+    <script src="js/dettaglio_scripts.js"></script>
+</body>
+</html>

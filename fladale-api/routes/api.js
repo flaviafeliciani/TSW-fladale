@@ -5,6 +5,7 @@ const db = require('../db'); // Modulo custom per l'accesso al database
 const crypto = require('crypto'); // Per generare token sicuri
 const nodemailer = require('nodemailer'); // Per inviare email
 const rateLimit = require('express-rate-limit'); // Per limitare il numero di richieste da un singolo IP
+const bcrypt = require('bcryptjs'); // Per crittografare la password
 
 // Rotta GET /tags: restituisce tutti i tag con nome e categoria
 router.get('/tags', async (req, res) => {
@@ -274,7 +275,7 @@ router.post('/login', async (req, res) => {
         conn.release();
 
         if (result.length === 0) {
-            return res.status(401).json({ error: "Email non trovata" });
+            return res.status(401).json({ error: "Email o password errate" });
         }
 
         const user = result[0];
@@ -287,7 +288,7 @@ router.post('/login', async (req, res) => {
             res.cookie('user_email', email, { path: '/' });
             return res.status(200).json({ success: true });
         } else {
-            return res.status(401).json({ error: "Password errata" });
+            return res.status(401).json({ error: "Email o password errata" });
         }
     } catch (err) {
         console.error(err);

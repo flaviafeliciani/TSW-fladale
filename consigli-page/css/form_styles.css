@@ -10,6 +10,7 @@ html, body {
   flex-direction: column;
 }
 
+/* Sfondo e font generale della pagina */
 body {
     font-family: 'Quicksand', sans-serif;
     width: 100%;
@@ -19,10 +20,12 @@ body {
     background-attachment: fixed;
 }
 
+/* Nasconde la scrollbar su Chrome */
 body::-webkit-scrollbar{
     display: none;
 }
 
+/* Contenitore della card con il form */
 .card {
     background: whitesmoke;
     border-radius: 15px;
@@ -38,6 +41,7 @@ body::-webkit-scrollbar{
     justify-content: center;
 }
 
+/* Wrapper che centra la card verticalmente */
 .form-container {
     flex: 1;
     display: flex;
@@ -46,6 +50,7 @@ body::-webkit-scrollbar{
     padding: 20px 0;
 }
 
+/* Animazione di entrata della card */
 @keyframes fadeInCard {
     from {opacity: 0; transform: translateY(-20px);}
     to {opacity: 1; transform: translateY(0);}
@@ -66,6 +71,7 @@ input {
     font-size: 16px;
 }
 
+/* Bottone di invio */
 button {
     width: 100%;
     background: #4CAF50;
@@ -84,6 +90,7 @@ button:hover {
     transform: scale(1.02);
 }
 
+/* Messaggio di risultato */
 #risultato {
     margin-top: 20px;
     padding: 15px;
@@ -94,6 +101,7 @@ button:hover {
     font-size: 18px;
 }
 
+/* Indicatore di caricamento */
 #loader {
     text-align: center;
     margin-top: 20px;
@@ -101,6 +109,7 @@ button:hover {
     color: #555;
 }
 
+/* Nasconde elementi dinamici */
 .hidden {
     display: none;
 }
@@ -153,6 +162,7 @@ footer {
     text-decoration: none;
     font-size: 1.2rem;
 }
+
 .login-button a {
     font-family: 'Quicksand', sans-serif;
     font-size: 1.2rem;
@@ -160,6 +170,7 @@ footer {
     text-decoration: none;
     padding: 10px;
 }
+
 .login-button:hover {
     background-color: transparent;
     opacity: 0.5;
@@ -170,6 +181,7 @@ footer {
     border: none;
     outline: none;
 }
+
 .top-section a img {
     border: none;
     outline: none;
@@ -197,7 +209,8 @@ footer {
 .icona-aggiungi:hover {
     transform: scale(1.1);
 }
-  
+
+/* Toast popup per notifiche */
 .toast {
     position: fixed;
     bottom: 10%;
@@ -218,6 +231,8 @@ footer {
 .toast.hidden {
     display: none;
 }
+
+/* Responsive: logo e layout mobile */
 @media screen and (max-width: 768px) {
     .top-section {
         flex-direction: column;
@@ -226,6 +241,7 @@ footer {
     }
 }
 
+/* Responsive: card e elementi form per schermi piccoli */
 @media screen and (max-width: 600px) {
   .card {
     width: 90%;

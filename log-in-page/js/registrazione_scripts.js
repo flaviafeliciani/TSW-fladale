@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-  //controllo input password
+    //controllo input password
     password.addEventListener("input", () => {
         if (!passwordPattern.test(password.value)) {
             showError(password, "Password non corretta");

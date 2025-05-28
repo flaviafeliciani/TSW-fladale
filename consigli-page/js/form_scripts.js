@@ -3,14 +3,17 @@ const API_BASE_URL = "http://localhost:8000";
 document.addEventListener("DOMContentLoaded", async () => {
     const accountArea = document.getElementById("account-area");
     
+    // Ottiene un cookie dato il nome
     const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         return parts.length === 2 ? parts.pop().split(';').shift() : null;
     };
   
+    // Recupera l'email dell'utente dal cookie
     const userEmail = getCookie("user_email");
   
+    // Se c'è un'email, mostra l'area profilo, altrimenti mostra "Accedi"
     if (userEmail) {
         try {
             const res = await fetch(`${API_BASE_URL}/api/utente?email=${userEmail}`);
@@ -29,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         accountArea.innerHTML = `<a href="../log-in-page/accesso_index.html">Accedi</a>`;
     }
   
-    // Gestione form piante
+    // Gestione invio del form "Trova la tua pianta"
     const form = document.getElementById("plantForm");
     if (form) {
         form.addEventListener("submit", async function (e) {
@@ -41,6 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const cura = document.getElementById("cura").value;
             const grandezza = document.getElementById("grandezza").value;
             
+            // Mappa tra opzioni e ID tag del database
             const tagMap = {
                 "Esterno": 1, "Ufficio": 2, "Salotto": 3, "Cucina": 4, "Camera": 5, "Bagno": 6,
                 "Facile": 7, "Intermedia": 8, "Difficile": 9, "Umido": 10, "Secco": 11,
@@ -66,10 +70,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         
             try {
-            // Esegui la richiesta all'API
+                // Chiamata all’API per recuperare le piante filtrate
                 const response = await fetch(`${API_BASE_URL}/api/piante?${params.toString()}`);
                 const piante = await response.json();
                 
+                // Se trova piante, reindirizza alla pagina di dettaglio
                 if (piante.length > 0) {
                     const randomPianta = piante[Math.floor(Math.random() * piante.length)];
                     const piantaId = randomPianta.id;
@@ -82,12 +87,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 showToast("Errore durante la ricerca. Riprova.");
             }
         
+            // Pulisce il form
             form.reset();
         });
     
     }
 });
 
+// Mostra un toast (popup di notifica temporanea)
 function showToast(messaggio, durata = 3000) {
     const toast = document.getElementById("toast-popup");
     if (!toast) return;
@@ -126,4 +133,5 @@ const observer = new MutationObserver(mutations => {
     });
 });
     
+// Attiva l’osservazione del DOM per aggiunte future
 observer.observe(document.body, { childList: true, subtree: true });

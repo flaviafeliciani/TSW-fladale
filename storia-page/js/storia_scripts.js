@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Disattiva il trascinamento su un elemento specifico
 function disableDragging(el) {
-    if (el.nodeType === 1) { // solo nodi di tipo ELEMENT
+    if (el.nodeType === 1) {
         el.setAttribute('draggable', 'false');
         el.querySelectorAll('*').forEach(child => {
             child.setAttribute('draggable', 'false');

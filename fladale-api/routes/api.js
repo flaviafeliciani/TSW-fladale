@@ -5,7 +5,7 @@ const db = require('../db'); // Modulo custom per l'accesso al database
 const crypto = require('crypto'); // Per generare token sicuri
 const nodemailer = require('nodemailer'); // Per inviare email
 const rateLimit = require('express-rate-limit'); // Per limitare il numero di richieste da un singolo IP
-const bcrypt = require('bcryptjs'); // Per crittografare la password
+const bcrypt = require('bcryptjs');
 
 // Rotta GET /tags: restituisce tutti i tag con nome e categoria
 router.get('/tags', async (req, res) => {
@@ -123,8 +123,10 @@ router.post("/password-dimenticata", passwordDimenticataLimiter, async (req, res
             <div style="background: url('https://raw.githubusercontent.com/L-B3N2/test_email/refs/heads/main/background_email_2.jpg') center center / cover no-repeat; padding: 40px 0 0 0; font-family: Arial, sans-serif; text-align: center;">
                 <div style="width: 70%; margin: auto; background-color: wheat; border-radius: 12px; padding: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.3);">
                     <div style="margin-bottom: 20px;">
-                        <img src="https://raw.githubusercontent.com/L-B3N2/test_email/1a5ea73ff322f26410c91b77ad9e87880d759e49/lg_fladale_no_bg_wheat.png" alt="Logo Fladale" style="height: 50px; vertical-align: middle;">
-                        <img src="https://raw.githubusercontent.com/L-B3N2/test_email/1a5ea73ff322f26410c91b77ad9e87880d759e49/wr_fladale_no_bg_wheat.png" alt="Scritta Fladale" style="height: 50px; vertical-align: middle;">
+                        <a href="${process.env.CLIENT_URL}/home-page/hp_index.html" style="text-decoration: none">
+                            <img src="https://raw.githubusercontent.com/L-B3N2/test_email/1a5ea73ff322f26410c91b77ad9e87880d759e49/lg_fladale_no_bg_wheat.png" alt="Logo Fladale" style="height: 50px; vertical-align: middle;">
+                            <img src="https://raw.githubusercontent.com/L-B3N2/test_email/1a5ea73ff322f26410c91b77ad9e87880d759e49/wr_fladale_no_bg_wheat.png" alt="Scritta Fladale" style="height: 50px; vertical-align: middle;">
+                        </a>
                     </div>
                     <h2 style="color: green; font-family: Georgia, 'Times New Roman', Times, serif;">fladale - Recupero Password</h2>
                     <p style="color: #333; font-size: 1.05em;">Clicca il bottone qui sotto per accedere direttamente al tuo profilo e modificare la tua password:</p>
@@ -148,7 +150,7 @@ router.post("/password-dimenticata", passwordDimenticataLimiter, async (req, res
         });
 
         // Risposta generica (per non far capire se l'email esiste)
-        res.json({ message: "Se l'email è corretta, riceverai un messaggio per il recupero." });
+        res.json({ message: "Se l'email è corretta, riceverai un messaggio funzionante per il recupero." });
     } catch (err) {
         console.error("Errore invio mail:", err);
         res.status(500).json({ message: "Errore durante l'invio dell'email" });
@@ -189,7 +191,7 @@ router.post('/register', async (req, res) => {
         const existing = await conn.query('SELECT * FROM utenti WHERE email = ?', [email]);
         if (existing.length > 0) {
             conn.release();
-            return res.status(400).json({ message: 'Email già registrata, accedi' });
+            return res.status(400).json({ message: 'Se hai già un account accedi' });
         }
 
         const password_hash = await bcrypt.hash(password, 10);

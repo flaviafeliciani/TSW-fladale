@@ -130,7 +130,7 @@ body::-webkit-scrollbar {
     clear: both;
 }
 
-/*gestione testo*/
+/*gestione testo e immagini*/
 .text-content {
     color: #f5d8d8; 
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
@@ -219,12 +219,16 @@ body::-webkit-scrollbar {
     margin-top: 30px;
     text-align: center;
     font-size: 0.9em;
-    color: rgb(160, 146, 180); /* stesso colore dei testi footer */
+    color: rgb(160, 146, 180); 
 }
-
 
 /*per schermi piccoli*/
 @media (max-width: 768px) {
+    .top-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
     .float-img {
         display: block;
         width: 40%; 

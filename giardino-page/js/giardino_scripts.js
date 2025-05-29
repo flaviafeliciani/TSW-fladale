@@ -234,14 +234,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     .catch(err => {
                         console.error("Errore eventi:", err);
                         failureCallback(err);
-                    });
+                });
             }
         });
         calendar.render();
 
         //gestione visione mobile del titolo del calendario
         const fixCalendarToolbarLayout = () => {
-            // Applica SOLO su dispositivi piccoli
+            
             if (window.innerWidth > 768) return;
 
             if (calendar && calendar.view.type !== 'listWeek') {
@@ -253,7 +253,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const title = toolbar.querySelector(".fc-toolbar-title");
             const chunks = toolbar.querySelectorAll(".fc-toolbar-chunk");
 
-            // Evita di applicare più volte
             if (toolbar.querySelector(".fc-toolbar-chunks")) return;
 
             const wrapper = document.createElement("div");
@@ -271,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 wrapper.appendChild(chunk);
             });
 
-            // Pulisce solo i figli, non l'intero toolbar (mantiene classi e struttura)
+            //(mantiene classi e struttura)
             while (toolbar.firstChild) toolbar.removeChild(toolbar.firstChild);
 
             toolbar.appendChild(title);

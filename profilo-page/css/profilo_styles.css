@@ -122,7 +122,7 @@ body::-webkit-scrollbar {
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: 0.3s ease;
 }
 .modifica-btn:hover {
     background-color: rgb(177, 161, 131);
@@ -174,7 +174,7 @@ body::-webkit-scrollbar {
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -214,6 +214,7 @@ body::-webkit-scrollbar {
     display: none;
 }
 
+/*misure per visione mobile*/
 @media (max-width: 768px) {
     body {
         padding: 100px 20px;
@@ -235,7 +236,7 @@ body::-webkit-scrollbar {
     }
 
     .input-box {
-        flex-wrap: nowrap; /* resta affiancato */
+        flex-wrap: nowrap; 
         gap: 10px;
     }
 

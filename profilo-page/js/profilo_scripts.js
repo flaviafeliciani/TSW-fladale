@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Event listeners
+    // Controllo formato numero di telefono e password
     telefonoInput.addEventListener("input", () => validatePhoneNumber(telefonoInput));
 
     passwordInput.addEventListener("input", () => {

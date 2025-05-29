@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             headerToolbar: {
                 start: 'prev,next today',
                 center: 'title',
-                end: 'listWeek,dayGridMonth'
+                end: window.innerWidth > 768 ? 'listWeek,dayGridMonth' : ''
             },
             views: {
                 listWeek: { buttonText: 'Settimana' },
@@ -244,6 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // Applica SOLO su dispositivi piccoli
             if (window.innerWidth > 768) return;
 
+            if (calendar && calendar.view.type !== 'listWeek') {
+                calendar.changeView('listWeek');
+            }
             const toolbar = document.querySelector(".fc-header-toolbar");
             if (!toolbar) return;
 

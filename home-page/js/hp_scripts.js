@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Funzione per ottenere l'indice dell'elemento più vicino al centro
 function getCenteredIndex() {
-    const carouselRect = carousel.getBoundingClientRect();
     let closestIndex = 0;
     let closestDistance = Infinity;
 

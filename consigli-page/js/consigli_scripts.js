@@ -1,6 +1,7 @@
 const API_BASE_URL = "http://localhost:8000";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    // Mappa ogni ambiente a un tag ID e alla rispettiva galleria (in ordine)
     const sezioni = [
         { tagId: '23', containerIndex: 0 }, // salotto
         { tagId: '26', containerIndex: 1 }, // bagno
@@ -9,17 +10,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         { tagId: '22', containerIndex: 4 }, // ufficio
     ];
 
-    // Carica piante in ogni sezione, sempre includendo il tag 22
+    // Per ogni ambiente carica la galleria corrispondente
     for (const { tagId, containerIndex } of sezioni) {
         await caricaGalleriaPerTagId(tagId, containerIndex);
     }
 
-    gestisciHoverImmagini();
-    gestisciScrollGallerie();
-    aggiornaAccountArea();
+    gestisciHoverImmagini(); // Attiva effetti hover sulle immagini
+    gestisciScrollGallerie();  // Attiva lo scroll tramite frecce
+    aggiornaAccountArea(); // Gestisce l’area account utente
 });
 
-// ✅ Carica le piante usando direttamente l'ID del tag + tag 22
+// Carica le piante usando direttamente l'ID del tag + tag 22
 async function caricaGalleriaPerTagId(tagId, containerIndex) {
     try {
         const res = await fetch(`${API_BASE_URL}/api/piante?tags=${tagId}`);
@@ -28,6 +29,7 @@ async function caricaGalleriaPerTagId(tagId, containerIndex) {
 
         container.innerHTML = ''; // pulizia contenuto statico
 
+        // Per ogni pianta, crea la card visuale
         piante.forEach(p => {
             const link = document.createElement('a');
             link.href = `../dettaglio-page/dettaglio_index.html?id=${p.id}`;
@@ -56,7 +58,7 @@ async function caricaGalleriaPerTagId(tagId, containerIndex) {
         console.error(`Errore nel caricamento della sezione tag ID ${tagId}:`, err);
     }
 }
-
+// Gestisce l’effetto hover sulle immagini delle piante (cambio immagine con dissolvenza)
 function gestisciHoverImmagini() {
     document.querySelectorAll('.galleria-piante').forEach(galleria => {
         galleria.addEventListener('mouseover', e => {
@@ -81,7 +83,7 @@ function gestisciHoverImmagini() {
     });
 }
 
-
+// Gestisce lo scroll orizzontale delle gallerie tramite pulsanti freccia
 function gestisciScrollGallerie() {
     document.querySelectorAll('.galleria-container').forEach(containerEl => {
         const container = containerEl.querySelector('.galleria-piante');
@@ -89,24 +91,29 @@ function gestisciScrollGallerie() {
         const rightBtn = containerEl.querySelector('.freccia.destra');
         const scrollAmount = 6 * 220;
 
+        // Scroll a destra
         rightBtn?.addEventListener('click', () => {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         });
 
+        // Scroll a sinistra
         leftBtn?.addEventListener('click', () => {
             container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
 
+        // Mostra/nasconde le frecce in base alla posizione di scroll
         container?.addEventListener('scroll', () => {
             const maxScrollLeft = container.scrollWidth - container.clientWidth;
             leftBtn.style.display = container.scrollLeft > 20 ? 'inline-block' : 'none';
             rightBtn.style.display = container.scrollLeft < maxScrollLeft - 20 ? 'inline-block' : 'none';
         });
 
+        // Inizializza visibilità frecce
         container?.dispatchEvent(new Event('scroll'));
     });
 }
 
+// Mostra il nome o login utente nell'area account
 async function aggiornaAccountArea() {
     const accountArea = document.getElementById("account-area");
 

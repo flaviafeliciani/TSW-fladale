@@ -490,22 +490,22 @@ router.get('/eventi-annaffiamento', async (req, res) => {
         const eventi = [];
 
         piante.forEach(pianta => {
-    const intervallo = pianta.richiesta_acqua_giorni || 7;
-    const baseDate = pianta.data_ultimo_annaffiamento 
-        ? new Date(pianta.data_ultimo_annaffiamento) 
-        : oggi;
+            const intervallo = pianta.richiesta_acqua_giorni || 7;
+            const baseDate = pianta.data_ultimo_annaffiamento 
+                ? new Date(pianta.data_ultimo_annaffiamento) 
+                : oggi;
 
-    for (let i = 1; i <= 5; i++) {
-        const data = new Date(baseDate);
-        data.setDate(baseDate.getDate() + i * intervallo);
+            for (let i = 1; i <= 5; i++) {
+                const data = new Date(baseDate);
+                data.setDate(baseDate.getDate() + i * intervallo);
 
-        eventi.push({
-            id_pianta: pianta.id_pianta,
-            title: `Annaffiare ${pianta.id_pianta}`,
-            start: data.toISOString().split("T")[0] + "T08:00:00"
+                eventi.push({
+                    id_pianta: pianta.id_pianta,
+                    title: `Annaffiare ${pianta.id_pianta}`,
+                    start: data.toISOString().split("T")[0] + "T08:00:00"
+                });
+            }
         });
-    }
-});
 
         conn.end();
         res.json(eventi);
